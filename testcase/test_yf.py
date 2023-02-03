@@ -6,72 +6,72 @@ import business.logger
 from business import logger
 import random
 
-# ¶¨Òåtoken
+# å®šä¹‰token
 a = dlxt.test_dl()['data']['token']
-# ¶¨Òå½ğ¶î
+# å®šä¹‰é‡‘é¢
 jine = random.randint(99, 399)
-# ¶¨ÒåĞŞ¸Ä½ğ¶î
+# å®šä¹‰ä¿®æ”¹é‡‘é¢
 xgjine = random.randint(99, 399)
 
-# ¿ªÆ±
-# ¶¨Òå¿ªÆ±id
+# å¼€ç¥¨
+# å®šä¹‰å¼€ç¥¨id
 b = {'id': None}
 c = b['id']
-# ¶¨Òå8Î»Ëæ»ú¿ªÆ±ºÅÂë
+# å®šä¹‰8ä½éšæœºå¼€ç¥¨å·ç 
 kphm = random.randint(99, 99999999)
-# ¶¨Òå8Î»Ëæ»ú¿ªÆ±ºÅÂë
+# å®šä¹‰8ä½éšæœºå¼€ç¥¨å·ç 
 xgkphm = random.randint(99, 99999999)
-# ¶¨Òå¿ªÆ±Î´º¬Ë°½ğ¶î
+# å®šä¹‰å¼€ç¥¨æœªå«ç¨é‡‘é¢
 hs = jine * 0.85
-# ¶¨Òå¿ªÆ±º¬Ë°½ğ¶î
+# å®šä¹‰å¼€ç¥¨å«ç¨é‡‘é¢
 whs = jine * 0.15
 
 
 def test_fp():
-    # ·¢Æ±URL
+    # å‘ç¥¨URL
     fp_url = 'http://192.168.0.217:9901/PurchaseApInvoice'
-    # ·¢Æ±ÇëÇóÍ·
+    # å‘ç¥¨è¯·æ±‚å¤´
     fp_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-    # ·¢Æ±ÇëÇóÌå
+    # å‘ç¥¨è¯·æ±‚ä½“
     fp_data = {"invoice_list": [
         {"invoice_total_amount": jine, "invoice_no": kphm, "invoice_time": "2023-02-01T16:00:00.000Z",
-         "invoice_type": 86, "invoice_type_name": "ÔöÖµË°×¨ÓÃ·¢Æ±-HZ(13%)",
+         "invoice_type": 86, "invoice_type_name": "å¢å€¼ç¨ä¸“ç”¨å‘ç¥¨-HZ(13%)",
          "invoice_info": [{"invoice_amount": whs, "invoice_tax_amount": hs, "invoice_tax_rate": whs}]}],
-        "remark": "²âÊÔ¿ªÆ±", "order_list": [
-            {"customer_name": "Õã½­Ìì½¡Ô¶¼û¿Æ¼¼ÓĞÏŞ¹«Ë¾", "purchase_order_code": "87654321", "invoice_amount": jine,
+        "remark": "æµ‹è¯•å¼€ç¥¨", "order_list": [
+            {"customer_name": "æµ™æ±Ÿå¤©å¥è¿œè§ç§‘æŠ€æœ‰é™å…¬å¸", "purchase_order_code": "87654321", "invoice_amount": jine,
              "not_invoice_amount": "9996611.00"}]}
-    # ·¢Æ±ÇëÇó
+    # å‘ç¥¨è¯·æ±‚
     r = requests.post(url=fp_url, json=fp_data, headers=fp_header)
-    # Êä³öÈÕÖ¾
-    logger.logger.debug(f'·¢ËÍÇëÇó:{r}')
-    # ´òÓ¡json·µ»ØÊı¾İ
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
     # print(r.json())
-    # ÉèÖÃ·¢Æ±³É¹¦¶ÏÑÔ
+    # è®¾ç½®å‘ç¥¨æˆåŠŸæ–­è¨€
     assert r.json()['message'] == 'success'
     print(r.json())
 
 
 # test_fp()
 
-# ¸¶¿î
+# ä»˜æ¬¾
 def test_fk():
-    # ¸¶¿îURL
+    # ä»˜æ¬¾URL
     fk_url = 'http://192.168.0.217:9901/PurchaseApPayment'
-    # ¸¶¿îÇëÇóÍ·
+    # ä»˜æ¬¾è¯·æ±‚å¤´
     fk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-    # ¸¶¿îÇëÇóÌå
+    # ä»˜æ¬¾è¯·æ±‚ä½“
     fk_data = {"payment_list": [
         {"payment_total_amount": jine, "payment_time": "2023-02-02T16:00:00.000Z", "payment_mode": 65,
-         "payment_mode_name": "»ªëĞÏÖ½ğ"}], "remark": "²âÊÔ¸¶¿î", "order_list": [
+         "payment_mode_name": "åèƒ„ç°é‡‘"}], "remark": "æµ‹è¯•ä»˜æ¬¾", "order_list": [
         {"not_payment_amount": "9995884.00", "offset_amount": 0, "pre_payment_amount": 0,
          "usable_pre_payment_amount": "6181.00", "purchase_order_code": "87654321", "payment_amount": jine}]}
-    # ¸¶¿îÇëÇó
+    # ä»˜æ¬¾è¯·æ±‚
     r = requests.post(url=fk_url, json=fk_data, headers=fk_header)
-    # Êä³öÈÕÖ¾
-    logger.logger.debug(f'·¢ËÍÇëÇó:{r}')
-    # ´òÓ¡json·µ»ØÊı¾İ
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
     # print(r.json())
-    # ÉèÖÃ¸¶¿î³É¹¦¶ÏÑÔ
+    # è®¾ç½®ä»˜æ¬¾æˆåŠŸæ–­è¨€
     assert r.json()['message'] == 'success'
     print(r.json())
 
@@ -79,83 +79,83 @@ def test_fk():
 # test_fk()
 
 
-# ÕÛ¿Û
-# ¶¨ÒåÕÛ¿Ûid
+# æŠ˜æ‰£
+# å®šä¹‰æŠ˜æ‰£id
 zhekou = {'id': None}
 zkid = zhekou['id']
 
 
 def test_zk():
     global zkid
-    # ÕÛ¿ÛURL
+    # æŠ˜æ‰£URL
     zk_url = 'http://192.168.0.217:9901/PurchaseApDiscount'
-    # ÕÛ¿ÛÇëÇóÍ·
+    # æŠ˜æ‰£è¯·æ±‚å¤´
     zk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-    # ÕÛ¿ÛÇëÇóÌå
-    zk_data = {"purchase_order_code": "87654321", "discount_amount": jine, "remark": "²âÊÔÕÛ¿Û"}
-    # ÕÛ¿ÛÇëÇó
+    # æŠ˜æ‰£è¯·æ±‚ä½“
+    zk_data = {"purchase_order_code": "87654321", "discount_amount": jine, "remark": "æµ‹è¯•æŠ˜æ‰£"}
+    # æŠ˜æ‰£è¯·æ±‚
     r = requests.post(url=zk_url, json=zk_data, headers=zk_header)
-    # »ñÈ¡ÕÛ¿Û¶©µ¥id¸üĞÂµ½ÁĞ±í
+    # è·å–æŠ˜æ‰£è®¢å•idæ›´æ–°åˆ°åˆ—è¡¨
     zhekou['token'] = r.json()['data']['id']
     zkid = r.json()['data']['id']
-    # Êä³öÈÕÖ¾
-    logger.logger.debug(f'·¢ËÍÇëÇó:{r}')
-    # ´òÓ¡json·µ»ØÊı¾İ
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
     print(r.json())
-    # ÉèÖÃÊÕ¿î³É¹¦¶ÏÑÔ
+    # è®¾ç½®æ”¶æ¬¾æˆåŠŸæ–­è¨€
     assert r.json()['message'] == 'success'
 
 
 # test_zk()
 
 
-# ĞŞ¸ÄÕÛ¿Û
+# ä¿®æ”¹æŠ˜æ‰£
 
 
 def test_xgzk():
     global zkid
-    # ĞŞ¸ÄÕÛ¿ÛURL
+    # ä¿®æ”¹æŠ˜æ‰£URL
     xgzk_url = f'http://192.168.0.217:9901/PurchaseApDiscount/{zkid}'
-    # ĞŞ¸ÄÕÛ¿ÛÇëÇóÍ·
+    # ä¿®æ”¹æŠ˜æ‰£è¯·æ±‚å¤´
     xgzk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-    # ĞŞ¸ÄÕÛ¿ÛÇëÇóÌå
+    # ä¿®æ”¹æŠ˜æ‰£è¯·æ±‚ä½“
     xgzk_data = {"id": zhekou['token'], "purchase_order_code": "87654321", "discount_amount": xgjine,
-                 "remark": "²âÊÔ±à¼­ÕÛ¿Û",
+                 "remark": "æµ‹è¯•ç¼–è¾‘æŠ˜æ‰£",
                  "creator_id": 1, "operate_id": 1, "creator_name": "Admin", "operate_name": "Admin"}
-    # ĞŞ¸ÄÕÛ¿ÛÇëÇó
+    # ä¿®æ”¹æŠ˜æ‰£è¯·æ±‚
     r = requests.put(url=xgzk_url, json=xgzk_data, headers=xgzk_header)
-    # Êä³öÈÕÖ¾
-    logger.logger.debug(f'·¢ËÍÇëÇó:{r}')
-    # ´òÓ¡json·µ»ØÊı¾İ
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
     print(r.json())
     # print(jine)
     # print(xgjine)
 
 
-# ÖÕÖ¹
-# ¶¨ÒåÖÕÖ¹id
+# ç»ˆæ­¢
+# å®šä¹‰ç»ˆæ­¢id
 zhongzhi = {'id': None}
 zzid = zhongzhi['id']
 
 
 def test_zz():
     global zzid
-    # ÖÕÖ¹URL
+    # ç»ˆæ­¢URL
     zz_url = 'http://192.168.0.217:9901/PurchaseApStop'
-    # ÖÕÖ¹ÇëÇóÍ·
+    # ç»ˆæ­¢è¯·æ±‚å¤´
     zz_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-    # ÖÕÖ¹ÇëÇóÌå
-    zz_data = {"purchase_order_code": "87654321", "stop_amount": jine, "remark": "²âÊÔÖÕÖ¹"}
-    # ÖÕÖ¹ÇëÇó
+    # ç»ˆæ­¢è¯·æ±‚ä½“
+    zz_data = {"purchase_order_code": "87654321", "stop_amount": jine, "remark": "æµ‹è¯•ç»ˆæ­¢"}
+    # ç»ˆæ­¢è¯·æ±‚
     r = requests.post(url=zz_url, json=zz_data, headers=zz_header)
-    # »ñÈ¡ÖÕÖ¹¶©µ¥id¸üĞÂµ½ÁĞ±í
+    # è·å–ç»ˆæ­¢è®¢å•idæ›´æ–°åˆ°åˆ—è¡¨
     zhongzhi['id'] = r.json()['data']['id']
     zzid = r.json()['data']['id']
-    # Êä³öÈÕÖ¾
-    logger.logger.debug(f'·¢ËÍÇëÇó:{r}')
-    # ´òÓ¡json·µ»ØÊı¾İ
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
     # print(r.json())
-    # ÉèÖÃÖÕÖ¹³É¹¦¶ÏÑÔ
+    # è®¾ç½®ç»ˆæ­¢æˆåŠŸæ–­è¨€
     assert r.json()['message'] == 'success'
     print(r.json())
 
@@ -163,53 +163,53 @@ def test_zz():
 # test_zz()
 
 
-# ĞŞ¸ÄÖÕÖ¹
+# ä¿®æ”¹ç»ˆæ­¢
 
 
 def test_xgzz():
     global zzid
-    # ĞŞ¸ÄÖÕÖ¹URL
+    # ä¿®æ”¹ç»ˆæ­¢URL
     xgzz_url = f'http://192.168.0.217:9901/PurchaseApStop/{zzid}'
-    # ĞŞ¸ÄÖÕÖ¹ÇëÇóÍ·
+    # ä¿®æ”¹ç»ˆæ­¢è¯·æ±‚å¤´
     xgzz_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-    # ĞŞ¸ÄÖÕÖ¹ÇëÇóÌå
+    # ä¿®æ”¹ç»ˆæ­¢è¯·æ±‚ä½“
     xgzz_data = {"id": zhongzhi['id'], "purchase_order_code": "87654321", "stop_amount": xgjine,
-                 "remark": "²âÊÔ±à¼­ÖÕÖ¹",
+                 "remark": "æµ‹è¯•ç¼–è¾‘ç»ˆæ­¢",
                  "creator_id": 1, "operate_id": 1, "creator_name": "Admin", "operate_name": "Admin"}
-    # ĞŞ¸ÄÖÕÖ¹ÇëÇó
+    # ä¿®æ”¹ç»ˆæ­¢è¯·æ±‚
     r = requests.put(url=xgzz_url, json=xgzz_data, headers=xgzz_header)
-    # Êä³öÈÕÖ¾
-    logger.logger.debug(f'·¢ËÍÇëÇó:{r}')
-    # ´òÓ¡json·µ»ØÊı¾İ
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
     print(r.json())
 
 
 # test_xgzz()
 
-# Î´Ë°
-# ¶¨ÒåÖÕÖ¹id
+# æœªç¨
+# å®šä¹‰ç»ˆæ­¢id
 weishui = {'id': None}
 zzws = zhongzhi['id']
 
 
 def test_ws():
     global zzws
-    # Î´Ë°URL
+    # æœªç¨URL
     ws_url = 'http://192.168.0.217:9901/PurchaseApNoTax'
-    # Î´Ë°ÇëÇóÍ·
+    # æœªç¨è¯·æ±‚å¤´
     ws_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-    # Î´Ë°ÇëÇóÌå
-    ws_data = {"purchase_order_code": "87654321", "no_tax_amount": jine, "remark": "²âÊÔÎ´Ë°"}
-    # Î´Ë°ÇëÇó
+    # æœªç¨è¯·æ±‚ä½“
+    ws_data = {"purchase_order_code": "87654321", "no_tax_amount": jine, "remark": "æµ‹è¯•æœªç¨"}
+    # æœªç¨è¯·æ±‚
     r = requests.post(url=ws_url, json=ws_data, headers=ws_header)
-    # »ñÈ¡ÖÕÖ¹¶©µ¥id¸üĞÂµ½ÁĞ±í
+    # è·å–ç»ˆæ­¢è®¢å•idæ›´æ–°åˆ°åˆ—è¡¨
     weishui['id'] = r.json()['data']['id']
     zzws = r.json()['data']['id']
-    # Êä³öÈÕÖ¾
-    logger.logger.debug(f'·¢ËÍÇëÇó:{r}')
-    # ´òÓ¡json·µ»ØÊı¾İ
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
     # print(r.json())
-    # ÉèÖÃÎ´Ë°³É¹¦¶ÏÑÔ
+    # è®¾ç½®æœªç¨æˆåŠŸæ–­è¨€
     assert r.json()['message'] == 'success'
     print(r.json())
 
@@ -217,50 +217,48 @@ def test_ws():
 # test_ws()
 
 
-# ĞŞ¸ÄÎ´Ë°
+# ä¿®æ”¹æœªç¨
 
 
 def test_xgws():
     global zzws, weishui
-    # ĞŞ¸ÄÎ´Ë°URL
+    # ä¿®æ”¹æœªç¨URL
     xgws_url = f'http://192.168.0.217:9901/PurchaseApNoTax/{zzws}'
-    # ĞŞ¸ÄÎ´Ë°ÇëÇóÍ·
+    # ä¿®æ”¹æœªç¨è¯·æ±‚å¤´
     xgws_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-    # ĞŞ¸ÄÎ´Ë°ÇëÇóÌå
+    # ä¿®æ”¹æœªç¨è¯·æ±‚ä½“
     xgws_data = {"id": weishui['id'], "purchase_order_code": "87654321", "no_tax_amount": xgjine,
-                 "remark": "²âÊÔ±à¼­Î´Ë°",
+                 "remark": "æµ‹è¯•ç¼–è¾‘æœªç¨",
                  "creator_id": 1, "operate_id": 1, "creator_name": "Admin", "operate_name": "Admin"}
-    # ĞŞ¸ÄÎ´Ë°ÇëÇó
+    # ä¿®æ”¹æœªç¨è¯·æ±‚
     r = requests.put(url=xgws_url, json=xgws_data, headers=xgws_header)
-    # Êä³öÈÕÖ¾
-    logger.logger.debug(f'·¢ËÍÇëÇó:{r}')
-    # ´òÓ¡json·µ»ØÊı¾İ
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
     print(r.json())
-    print(xgws_data)
-    print(xgws_url)
 
 
-# Ô¤¸¶¿î±ä¸ü
-# ¶¨ÒåËæ»úÔö¼Ó¼õÉÙÔ¤¸¶¿î½ğ¶î
+# é¢„ä»˜æ¬¾å˜æ›´
+# å®šä¹‰éšæœºå¢åŠ å‡å°‘é¢„ä»˜æ¬¾é‡‘é¢
 yfk = random.randint(-199, 399)
 
 
 def test_yfk():
-    # Ô¤¸¶¿îURL
+    # é¢„ä»˜æ¬¾URL
     yfk_url = 'http://192.168.0.217:9901/PurchaseApCustomerPre'
-    # Ô¤¸¶¿îÇëÇóÍ·
+    # é¢„ä»˜æ¬¾è¯·æ±‚å¤´
     yfk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-    # Ô¤¸¶¿îÇëÇóÌå
-    yfk_data = {"total_pre_payment_amount": "", "customer_name": "Õã½­Ìì½¡Ô¶¼û¿Æ¼¼ÓĞÏŞ¹«Ë¾", "payment_mode": 65,
-                "payment_mode_name": "»ªëĞÏÖ½ğ", "payment_time": "2023-02-28", "pre_payment_amount": yfk,
-                "remark": "²âÊÔĞÂÔöÔ¤¸¶¿î"}
-    # Ô¤¸¶¿îÇëÇó
+    # é¢„ä»˜æ¬¾è¯·æ±‚ä½“
+    yfk_data = {"total_pre_payment_amount": "", "customer_name": "æµ™æ±Ÿå¤©å¥è¿œè§ç§‘æŠ€æœ‰é™å…¬å¸", "payment_mode": 65,
+                "payment_mode_name": "åèƒ„ç°é‡‘", "payment_time": "2023-02-28", "pre_payment_amount": yfk,
+                "remark": "æµ‹è¯•æ–°å¢é¢„ä»˜æ¬¾"}
+    # é¢„ä»˜æ¬¾è¯·æ±‚
     r = requests.post(url=yfk_url, json=yfk_data, headers=yfk_header)
-    # Êä³öÈÕÖ¾
-    logger.logger.debug(f'·¢ËÍÇëÇó:{r}')
-    # ´òÓ¡json·µ»ØÊı¾İ
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
     # print(r.json())
-    # ÉèÖÃÔ¤¸¶¿î±ä¸ü³É¹¦¶ÏÑÔ
+    # è®¾ç½®é¢„ä»˜æ¬¾å˜æ›´æˆåŠŸæ–­è¨€
     assert r.json()['message'] == 'success'
     print(r.json())
 
