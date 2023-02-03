@@ -236,6 +236,10 @@ def test_xgws():
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
     print(r.json())
+    
+   
+# test_xgws()
+
 
 
 # 预付款变更
@@ -262,4 +266,4 @@ def test_yfk():
     assert r.json()['message'] == 'success'
     print(r.json())
 
-# test_ws()
+# test_yfk()
