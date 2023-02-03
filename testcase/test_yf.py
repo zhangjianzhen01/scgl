@@ -57,6 +57,31 @@ def test_fp():
 
 # test_fp()
 
+# 付款
+def test_fk():
+    # 付款URL
+    fk_url = 'http://192.168.0.217:9901/PurchaseApPayment'
+    # 付款请求头
+    fk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+    # 付款请求体
+    fk_data = {"payment_list": [
+        {"payment_total_amount": jine, "payment_time": "2023-02-02T16:00:00.000Z", "payment_mode": 65,
+         "payment_mode_name": "华胄现金"}], "remark": "测试付款", "order_list": [
+        {"not_payment_amount": "9995884.00", "offset_amount": 0, "pre_payment_amount": 0,
+         "usable_pre_payment_amount": "6181.00", "purchase_order_code": "87654321", "payment_amount": jine}]}
+    # 付款请求
+    r = requests.post(url=fk_url, json=fk_data, headers=fk_header)
+    # 输出日志
+    logger.logger.debug(f'发送请求:{r}')
+    # 打印json返回数据
+    # print(r.json())
+    # 设置付款成功断言
+    assert r.json()['message'] == 'success'
+    print(r.json())
+
+
+# test_fk()
+
 
 # 折扣
 # 定义折扣id
