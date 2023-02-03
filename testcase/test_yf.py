@@ -172,6 +172,7 @@ zzws = zhongzhi['id']
 
 
 def test_ws():
+    global zzws
     # 未税URL
     ws_url = 'http://192.168.0.217:9901/PurchaseApNoTax'
     # 未税请求头
@@ -180,6 +181,9 @@ def test_ws():
     ws_data = {"purchase_order_code": "87654321", "no_tax_amount": jine, "remark": "测试未税"}
     # 未税请求
     r = requests.post(url=ws_url, json=ws_data, headers=ws_header)
+    # 获取终止订单id更新到列表
+    weishui['id'] = r.json()['data']['id']
+    zzws = r.json()['data']['id']
     # 输出日志
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
@@ -196,7 +200,7 @@ def test_ws():
 
 
 def test_xgws():
-    global zzws
+    global zzws, weishui
     # 修改未税URL
     xgws_url = f'http://192.168.0.217:9901/PurchaseApNoTax/{zzws}'
     # 修改未税请求头
@@ -211,6 +215,8 @@ def test_xgws():
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
     print(r.json())
+    print(xgws_data)
+    print(xgws_url)
 
 
 # 预付款变更
