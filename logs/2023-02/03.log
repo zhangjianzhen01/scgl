@@ -1,0 +1,5 @@
+2023-02-03 09:32:15,634 DEBUG 生产管理系统 发送请求:<Response [200]> demo.py test_fp
+2023-02-03 09:32:15,866 DEBUG 生产管理系统 发送请求:<Response [200]> demo.py test_xgfp
+2023-02-03 09:36:07,965 DEBUG 生产管理系统 发送请求:<Response [200]> demo.py test_fp
+2023-02-03 09:36:51,002 DEBUG 生产管理系统 发送请求:<Response [200]> demo.py test_fp
+2023-02-03 09:36:51,200 DEBUG 生产管理系统 发送请求:<Response [200]> demo.py test_xgfp
