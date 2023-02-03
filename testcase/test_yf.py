@@ -236,8 +236,6 @@ def test_xgws():
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
     print(r.json())
-    print(xgws_data)
-    print(xgws_url)
 
 
 # 预付款变更
