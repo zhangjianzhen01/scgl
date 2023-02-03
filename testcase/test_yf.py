@@ -7,7 +7,6 @@ from business import logger
 import random
 import pymysql
 
-
 # 定义token
 a = dlxt.test_dl()['data']['token']
 # 定义金额
@@ -16,6 +15,9 @@ jine = random.randint(99, 399)
 xgjine = random.randint(99, 399)
 
 # 开票
+# 定义开票id
+kaipiao = {'id': None}
+kpid = kaipiao['id']
 # 定义8位随机开票号码
 kphm = random.randint(99, 99999999)
 # 定义8位随机开票号码
@@ -27,6 +29,7 @@ whs = jine * 0.15
 
 
 def test_fp():
+    global kpid
     # 发票URL
     fp_url = 'http://192.168.0.217:9901/PurchaseApInvoice'
     # 发票请求头
@@ -41,6 +44,9 @@ def test_fp():
              "not_invoice_amount": "9996611.00"}]}
     # 发票请求
     r = requests.post(url=fp_url, json=fp_data, headers=fp_header)
+    # 获取开票id更新到列表
+    kaipiao['id'] = r.json()['data']['id']
+    kpid = r.json()['data']['id']
     # 输出日志
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
@@ -52,6 +58,46 @@ def test_fp():
 
 
 # test_fp()
+
+
+# 删除开票
+def test_sckp():
+    # 删除发票URL
+    sckp_url = f'http://192.168.0.217:9901/PurchaseApInvoice/{kpid}'
+    # 删除发票请求头
+    sckp_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+    # 删除发票请求
+    r = requests.delete(url=sckp_url, headers=sckp_header)
+    # 输出日志
+    logger.logger.debug(f'发送请求:{r}')
+    # 打印json返回数据
+    # print(r.json())
+
+
+# test_sckp()
+
+
+# 查询发票操作记录
+def test_查询发票操作日志():
+    global kpid
+    # 连接数据库
+    connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
+    if connect:
+        print('连接成功')
+    # 创建一个游标对象
+    yf = connect.cursor()
+    # 精确查询操作日志
+    sql_rz = f"select invoice_id,`type` from hz_erp_test.hz_purchase_ap_invoice_log where invoice_id ={kpid}"
+    # 执行查询语句
+    yf.execute(sql_rz)
+    # 获取结果
+    rz = yf.fetchall()
+    print(rz)
+    yf.close()
+
+
+# # test_查询发票操作日志()
+
 # 定义付款id
 fukuan = {'id': None}
 fkid = fukuan['id']
@@ -72,6 +118,7 @@ def test_fk():
          "usable_pre_payment_amount": "6181.00", "purchase_order_code": "87654321", "payment_amount": jine}]}
     # 付款请求
     r = requests.post(url=fk_url, json=fk_data, headers=fk_header)
+    # 获取付款id更新到列表
     fukuan['id'] = r.json()['data']['id']
     fkid = r.json()['data']['id']
     # 输出日志
@@ -80,26 +127,49 @@ def test_fk():
     # print(r.json())
     # 设置付款成功断言
     assert r.json()['message'] == 'success'
-    print(r.json())
+    # 打印json返回数据
+    # print(r.json())
 
 
 # test_fk()
 
 # 删除收款
-# def test_scfk():
-#     # 删除收款URL
-#     scfk_url = f'http://192.168.0.217:9901/PurchaseApPayment/{fkid}'
-#     # 删除收款请求头
-#     scfk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-#     # 删除收款请求
-#     r = requests.delete(url=scfk_url, headers=scfk_header)
-#     # 输出日志
-#     logger.logger.debug(f'发送请求:{r}')
-#     # 打印json返回数据
-#     print(r.json())
+def test_scfk():
+    # 删除收款URL
+    scfk_url = f'http://192.168.0.217:9901/PurchaseApPayment/{fkid}'
+    # 删除收款请求头
+    scfk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+    # 删除收款请求
+    r = requests.delete(url=scfk_url, headers=scfk_header)
+    # 输出日志
+    logger.logger.debug(f'发送请求:{r}')
+    # 打印json返回数据
+    # print(r.json())
 
 
 # test_scfk()
+
+
+# 查询付款操作记录
+def test_查询付款操作日志():
+    global fkid
+    # 连接数据库
+    connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
+    if connect:
+        print('连接成功')
+    # 创建一个游标对象
+    yf = connect.cursor()
+    # 精确查询操作日志
+    sql_rz = f"select payment_id,`type` from hz_erp_test.hz_purchase_ap_payment_log where payment_id ={fkid}"
+    # 执行查询语句
+    yf.execute(sql_rz)
+    # 获取结果
+    rz = yf.fetchall()
+    print(rz)
+    yf.close()
+
+
+# test_查询付款操作日志()
 
 
 # 折扣
@@ -151,8 +221,6 @@ def test_xgzk():
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
     # print(r.json())
-    # print(jine)
-    # print(xgjine)
 
 
 # test_xgzk()
@@ -174,7 +242,7 @@ def test_sczk():
 # test_sczk()
 
 # 查询折扣操作记录
-def test_cxzk():
+def test_查询折扣操作日志():
     global zkid
     # 连接数据库
     connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
@@ -191,7 +259,8 @@ def test_cxzk():
     print(rz)
     yf.close()
 
-# test_cxzk()
+
+# test_查询折扣操作日志()
 
 
 # 终止
@@ -251,20 +320,43 @@ def test_xgzz():
 
 
 # 删除终止
-# def test_sczz():
-#     # 删除终止URL
-#     sczz_url = f'http://192.168.0.217:9901/PurchaseApStop/{zzid}'
-#     # 删除终止请求头
-#     sczz_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-#     # 删除终止请求
-#     r = requests.delete(url=sczz_url, headers=sczz_header)
-#     # 输出日志
-#     logger.logger.debug(f'发送请求:{r}')
-#     # 打印json返回数据
-#     print(r.json())
+def test_sczz():
+    # 删除终止URL
+    sczz_url = f'http://192.168.0.217:9901/PurchaseApStop/{zzid}'
+    # 删除终止请求头
+    sczz_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+    # 删除终止请求
+    r = requests.delete(url=sczz_url, headers=sczz_header)
+    # 输出日志
+    logger.logger.debug(f'发送请求:{r}')
+    # 打印json返回数据
+    # print(r.json())
 
 
 # test_sczz()
+
+
+# 查询终止操作记录
+def test_查询终止操作日志():
+    global zzid
+    # 连接数据库
+    connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
+    if connect:
+        print('连接成功')
+    # 创建一个游标对象
+    yf = connect.cursor()
+    # 精确查询操作日志
+    sql_rz = f"select stop_id,`type` from hz_erp_test.hz_purchase_ap_stop_log where stop_id ={zzid}"
+    # 执行查询语句
+    yf.execute(sql_rz)
+    # 获取结果
+    rz = yf.fetchall()
+    print(rz)
+    yf.close()
+
+
+# test_查询终止操作日志()
+
 
 # 未税
 # 定义未税id
@@ -323,20 +415,42 @@ def test_xgws():
 
 
 # 删除未税
-# def test_scws():
-#     # 删除终止URL
-#     scws_url = f'http://192.168.0.217:9901/PurchaseApNoTax/{zzid}'
-#     # 删除终止请求头
-#     scws_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-#     # 删除终止请求
-#     r = requests.delete(url=scws_url, headers=scws_header)
-#     # 输出日志
-#     logger.logger.debug(f'发送请求:{r}')
-#     # 打印json返回数据
-#     print(r.json())
+def test_scws():
+    # 删除终止URL
+    scws_url = f'http://192.168.0.217:9901/PurchaseApNoTax/{ws}'
+    # 删除终止请求头
+    scws_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+    # 删除终止请求
+    r = requests.delete(url=scws_url, headers=scws_header)
+    # 输出日志
+    logger.logger.debug(f'发送请求:{r}')
+    # 打印json返回数据
+    # print(r.json())
 
 
 # test_scws()
+
+
+# 查询未税操作记录
+def test_查询未税操作日志():
+    global ws
+    # 连接数据库
+    connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
+    if connect:
+        print('连接成功')
+    # 创建一个游标对象
+    yf = connect.cursor()
+    # 精确查询操作日志
+    sql_rz = f"select no_tax_id,`type` from hz_erp_test.hz_purchase_ap_no_tax_log where no_tax_id ={ws}"
+    # 执行查询语句
+    yf.execute(sql_rz)
+    # 获取结果
+    rz = yf.fetchall()
+    print(rz)
+    yf.close()
+
+
+# test_查询未税操作日志()
 
 
 # 预付款变更
