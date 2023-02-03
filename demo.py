@@ -1,81 +1,110 @@
-# coding=gbk
-
-import business.dlxt
-from business import dlxt
+# -*- coding:utf-8 -*-   #è½¬ç 
+import pymysql
+# è°ƒç”¨requestsåº“
 import requests
+# è°ƒç”¨randomåº“
+import random
+# è°ƒç”¨æ—¥å¿—ä»£ç 
 import business.logger
 from business import logger
-import random
-import json
+# è°ƒç”¨ç™»å½•ç³»ç»Ÿä»£ç 
+import business.dlxt
+from business import dlxt
 
-# ¶¨Òå½ğ¶î
+# å®šä¹‰token
+a = dlxt.test_dl()['data']['token']
+
+# æŠ˜æ‰£
+# å®šä¹‰æŠ˜æ‰£id
+zhekou = {'id': None}
+zkid = zhekou['id']
+# å®šä¹‰é‡‘é¢
 jine = random.randint(99, 399)
-# ¶¨ÒåĞŞ¸Ä½ğ¶î
+# å®šä¹‰ä¿®æ”¹é‡‘é¢
 xgjine = random.randint(99, 399)
 
-# ¶¨Òåtoken
-a = dlxt.test_dl()['data']['token']
-# ¶¨Òå¿ªÆ±id
-b = {'id': None}
-c = b['id']
 
-
-def test_fk():
-    global c
-    # ¸¶¿îURL
-    fk_url = 'http://192.168.0.217:9901/PurchaseApPayment'
-    # ¸¶¿îÇëÇóÍ·
-    fk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-    # ¸¶¿îÇëÇóÌå
-    fk_data = {"payment_list": [
-        {"payment_total_amount": 199, "payment_time": "2023-02-02T16:00:00.000Z", "payment_mode": 65,
-         "payment_mode_name": "»ªëĞÏÖ½ğ"}], "remark": "²âÊÔ¸¶¿î", "order_list": [
-        {"not_payment_amount": "9995884.00", "offset_amount": 0, "pre_payment_amount": 0,
-         "usable_pre_payment_amount": "6181.00", "purchase_order_code": "87654321", "payment_amount": 199}]}
-    # ¸¶¿îÇëÇó
-    r = requests.post(url=fk_url, json=fk_data, headers=fk_header)
-    # Êä³öÈÕÖ¾
-    logger.logger.debug(f'·¢ËÍÇëÇó:{r}')
-    # »ñÈ¡¸¶¿î¶©µ¥id¸üĞÂµ½ÁĞ±í
-    b['id'] = r.json()['data']['id']
-    c = r.json()['data']['id']
-    # ´òÓ¡json·µ»ØÊı¾İ
-    # print(r.json())
-    # ÉèÖÃ¸¶¿î³É¹¦¶ÏÑÔ
+def test_zk():
+    global zkid
+    # æŠ˜æ‰£URL
+    zk_url = 'http://192.168.0.217:9901/PurchaseApDiscount'
+    # æŠ˜æ‰£è¯·æ±‚å¤´
+    zk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+    # æŠ˜æ‰£è¯·æ±‚ä½“
+    zk_data = {"purchase_order_code": "87654321", "discount_amount": jine, "remark": "æµ‹è¯•æŠ˜æ‰£"}
+    # æŠ˜æ‰£è¯·æ±‚
+    r = requests.post(url=zk_url, json=zk_data, headers=zk_header)
+    # è·å–æŠ˜æ‰£è®¢å•idæ›´æ–°åˆ°åˆ—è¡¨
+    zhekou['id'] = r.json()['data']['id']
+    zkid = r.json()['data']['id']
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
+    print(r.json())
+    # è®¾ç½®æ”¶æ¬¾æˆåŠŸæ–­è¨€
     assert r.json()['message'] == 'success'
+
+
+# test_zk()
+
+
+# ä¿®æ”¹æŠ˜æ‰£
+
+
+def test_xgzk():
+    global zkid
+    # ä¿®æ”¹æŠ˜æ‰£URL
+    xgzk_url = f'http://192.168.0.217:9901/PurchaseApDiscount/{zkid}'
+    # ä¿®æ”¹æŠ˜æ‰£è¯·æ±‚å¤´
+    xgzk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+    # ä¿®æ”¹æŠ˜æ‰£è¯·æ±‚ä½“
+    xgzk_data = {"id": zhekou['id'], "purchase_order_code": "87654321", "discount_amount": xgjine,
+                 "remark": "æµ‹è¯•ç¼–è¾‘æŠ˜æ‰£",
+                 "creator_id": 1, "operate_id": 1, "creator_name": "Admin", "operate_name": "Admin"}
+    # ä¿®æ”¹æŠ˜æ‰£è¯·æ±‚
+    r = requests.put(url=xgzk_url, json=xgzk_data, headers=xgzk_header)
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
     print(r.json())
+    # print(jine)
+    # print(xgjine)
 
 
-# test_fk()
+# test_xgzk()
 
-
-# ĞŞ¸Ä·¢Æ±½ğ¶î
-def test_xgfk():
-    global c
-    # ĞŞ¸Ä¸¶¿îURL
-    xgfk_url = f'http://192.168.0.217:9901/PurchaseApPayment/{c}'
-    # ĞŞ¸Ä¸¶¿îÇëÇóÍ·
-    xgfk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
-    # ĞŞ¸Ä¸¶¿îÇëÇóÌå
-    xgfk_data = {"id": b['id'], "remark": "²âÊÔĞŞ¸Ä¿ªÆ±¸¶¿î", "creator_id": 1, "operate_id": 1, "payment_list": [
-        {"id": 2029, "payment_id": b['id'], "payment_time": "2023-02-03", "payment_total_amount": 99, "payment_mode": 65,
-         "payment_mode_name": "»ªëĞÏÖ½ğ", "deleted_at": 0}], "order_list": [
-        {"id": 3727, "payment_id": b['id'], "purchase_order_code": "87654321", "payment_amount": 99,
-         "pre_payment_amount": 0, "offset_amount": "0.00", "deleted_at": 0, "customer_name": "Õã½­Ìì½¡Ô¶¼û¿Æ¼¼ÓĞÏŞ¹«Ë¾",
-         "not_payment_amount": "9995585.00", "usable_pre_payment_amount": "6181.00"}], "creator_name": "Admin",
-                 "operate_name": "Admin"}
-
-    data = json.dumps(xgfk_data)
-    # ĞŞ¸ÄÎ´Ë°ÇëÇó
-    r = requests.put(url=xgfk_url, json=data, headers=xgfk_header)
-    # Êä³öÈÕÖ¾
-    logger.logger.debug(f'·¢ËÍÇëÇó:{r}')
-    # ´òÓ¡json·µ»ØÊı¾İ
+# åˆ é™¤æŠ˜æ‰£
+def test_sczk():
+    # åˆ é™¤æŠ˜æ‰£URL
+    sczk_url = f'http://192.168.0.217:9901/PurchaseApDiscount/{zkid}'
+    # åˆ é™¤æŠ˜æ‰£è¯·æ±‚å¤´
+    sczk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+    # åˆ é™¤æŠ˜æ‰£è¯·æ±‚
+    r = requests.delete(url=sczk_url, headers=sczk_header)
+    # è¾“å‡ºæ—¥å¿—
+    logger.logger.debug(f'å‘é€è¯·æ±‚:{r}')
+    # æ‰“å°jsonè¿”å›æ•°æ®
     print(r.json())
-    print(jine)
-    print(xgjine)
-    print(b)
-    print(c)
-    print(data)
-    print(xgfk_url)
+    print(zkid)
 
+
+# test_sczk()
+
+def test_cxrz():
+    global zkid
+    # è¿æ¥æ•°æ®åº“
+    connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
+    if connect:
+        print('è¿æ¥æˆåŠŸ')
+    # åˆ›å»ºä¸€ä¸ªæ¸¸æ ‡å¯¹è±¡
+    yf = connect.cursor()
+    # ç²¾ç¡®æŸ¥è¯¢æ“ä½œæ—¥å¿—
+    sql_rz = f"select discount_id,`type` from hz_erp_test.hz_purchase_ap_discount_log where discount_id ={zkid}"
+    # æ‰§è¡ŒæŸ¥è¯¢è¯­å¥
+    yf.execute(sql_rz)
+    # è·å–ç»“æœ
+    rz = yf.fetchall()
+    print(rz)
+    yf.close()
+
+# test_cxrz()

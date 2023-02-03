@@ -5,6 +5,8 @@ import requests
 import business.logger
 from business import logger
 import random
+import pymysql
+
 
 # 定义token
 a = dlxt.test_dl()['data']['token']
@@ -14,9 +16,6 @@ jine = random.randint(99, 399)
 xgjine = random.randint(99, 399)
 
 # 开票
-# 定义开票id
-b = {'id': None}
-c = b['id']
 # 定义8位随机开票号码
 kphm = random.randint(99, 99999999)
 # 定义8位随机开票号码
@@ -48,13 +47,19 @@ def test_fp():
     # print(r.json())
     # 设置发票成功断言
     assert r.json()['message'] == 'success'
-    print(r.json())
+    # 打印json返回数据
+    # print(r.json())
 
 
 # test_fp()
+# 定义付款id
+fukuan = {'id': None}
+fkid = fukuan['id']
+
 
 # 付款
 def test_fk():
+    global fkid
     # 付款URL
     fk_url = 'http://192.168.0.217:9901/PurchaseApPayment'
     # 付款请求头
@@ -67,6 +72,8 @@ def test_fk():
          "usable_pre_payment_amount": "6181.00", "purchase_order_code": "87654321", "payment_amount": jine}]}
     # 付款请求
     r = requests.post(url=fk_url, json=fk_data, headers=fk_header)
+    fukuan['id'] = r.json()['data']['id']
+    fkid = r.json()['data']['id']
     # 输出日志
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
@@ -77,6 +84,22 @@ def test_fk():
 
 
 # test_fk()
+
+# 删除收款
+# def test_scfk():
+#     # 删除收款URL
+#     scfk_url = f'http://192.168.0.217:9901/PurchaseApPayment/{fkid}'
+#     # 删除收款请求头
+#     scfk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+#     # 删除收款请求
+#     r = requests.delete(url=scfk_url, headers=scfk_header)
+#     # 输出日志
+#     logger.logger.debug(f'发送请求:{r}')
+#     # 打印json返回数据
+#     print(r.json())
+
+
+# test_scfk()
 
 
 # 折扣
@@ -96,12 +119,12 @@ def test_zk():
     # 折扣请求
     r = requests.post(url=zk_url, json=zk_data, headers=zk_header)
     # 获取折扣订单id更新到列表
-    zhekou['token'] = r.json()['data']['id']
+    zhekou['id'] = r.json()['data']['id']
     zkid = r.json()['data']['id']
     # 输出日志
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
-    print(r.json())
+    # print(r.json())
     # 设置收款成功断言
     assert r.json()['message'] == 'success'
 
@@ -119,7 +142,7 @@ def test_xgzk():
     # 修改折扣请求头
     xgzk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
     # 修改折扣请求体
-    xgzk_data = {"id": zhekou['token'], "purchase_order_code": "87654321", "discount_amount": xgjine,
+    xgzk_data = {"id": zhekou['id'], "purchase_order_code": "87654321", "discount_amount": xgjine,
                  "remark": "测试编辑折扣",
                  "creator_id": 1, "operate_id": 1, "creator_name": "Admin", "operate_name": "Admin"}
     # 修改折扣请求
@@ -127,9 +150,48 @@ def test_xgzk():
     # 输出日志
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
-    print(r.json())
+    # print(r.json())
     # print(jine)
     # print(xgjine)
+
+
+# test_xgzk()
+
+# 删除折扣
+def test_sczk():
+    # 删除折扣URL
+    sczk_url = f'http://192.168.0.217:9901/PurchaseApDiscount/{zkid}'
+    # 删除折扣请求头
+    sczk_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+    # 删除折扣请求
+    r = requests.delete(url=sczk_url, headers=sczk_header)
+    # 输出日志
+    logger.logger.debug(f'发送请求:{r}')
+    # 打印json返回数据
+    # print(r.json())
+
+
+# test_sczk()
+
+# 查询折扣操作记录
+def test_cxzk():
+    global zkid
+    # 连接数据库
+    connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
+    if connect:
+        print('连接成功')
+    # 创建一个游标对象
+    yf = connect.cursor()
+    # 精确查询操作日志
+    sql_rz = f"select discount_id,`type` from hz_erp_test.hz_purchase_ap_discount_log where discount_id ={zkid}"
+    # 执行查询语句
+    yf.execute(sql_rz)
+    # 获取结果
+    rz = yf.fetchall()
+    print(rz)
+    yf.close()
+
+# test_cxzk()
 
 
 # 终止
@@ -157,7 +219,8 @@ def test_zz():
     # print(r.json())
     # 设置终止成功断言
     assert r.json()['message'] == 'success'
-    print(r.json())
+    # 打印json返回数据
+    # print(r.json())
 
 
 # test_zz()
@@ -181,19 +244,36 @@ def test_xgzz():
     # 输出日志
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
-    print(r.json())
+    # print(r.json())
 
 
 # test_xgzz()
 
+
+# 删除终止
+# def test_sczz():
+#     # 删除终止URL
+#     sczz_url = f'http://192.168.0.217:9901/PurchaseApStop/{zzid}'
+#     # 删除终止请求头
+#     sczz_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+#     # 删除终止请求
+#     r = requests.delete(url=sczz_url, headers=sczz_header)
+#     # 输出日志
+#     logger.logger.debug(f'发送请求:{r}')
+#     # 打印json返回数据
+#     print(r.json())
+
+
+# test_sczz()
+
 # 未税
-# 定义终止id
+# 定义未税id
 weishui = {'id': None}
-zzws = zhongzhi['id']
+ws = weishui['id']
 
 
 def test_ws():
-    global zzws
+    global ws
     # 未税URL
     ws_url = 'http://192.168.0.217:9901/PurchaseApNoTax'
     # 未税请求头
@@ -204,14 +284,15 @@ def test_ws():
     r = requests.post(url=ws_url, json=ws_data, headers=ws_header)
     # 获取终止订单id更新到列表
     weishui['id'] = r.json()['data']['id']
-    zzws = r.json()['data']['id']
+    ws = r.json()['data']['id']
     # 输出日志
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
     # print(r.json())
     # 设置未税成功断言
     assert r.json()['message'] == 'success'
-    print(r.json())
+    # 打印json返回数据
+    # print(r.json())
 
 
 # test_ws()
@@ -221,9 +302,9 @@ def test_ws():
 
 
 def test_xgws():
-    global zzws, weishui
+    global ws, weishui
     # 修改未税URL
-    xgws_url = f'http://192.168.0.217:9901/PurchaseApNoTax/{zzws}'
+    xgws_url = f'http://192.168.0.217:9901/PurchaseApNoTax/{ws}'
     # 修改未税请求头
     xgws_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
     # 修改未税请求体
@@ -235,10 +316,27 @@ def test_xgws():
     # 输出日志
     logger.logger.debug(f'发送请求:{r}')
     # 打印json返回数据
-    print(r.json())
+    # print(r.json())
 
 
 # test_xgws()
+
+
+# 删除未税
+# def test_scws():
+#     # 删除终止URL
+#     scws_url = f'http://192.168.0.217:9901/PurchaseApNoTax/{zzid}'
+#     # 删除终止请求头
+#     scws_header = {"Content-Type": "application/json;charset=UTF-8", "authorization": f"Bearer {a}"}
+#     # 删除终止请求
+#     r = requests.delete(url=scws_url, headers=scws_header)
+#     # 输出日志
+#     logger.logger.debug(f'发送请求:{r}')
+#     # 打印json返回数据
+#     print(r.json())
+
+
+# test_scws()
 
 
 # 预付款变更
@@ -263,6 +361,7 @@ def test_yfk():
     # print(r.json())
     # 设置预付款变更成功断言
     assert r.json()['message'] == 'success'
-    print(r.json())
+    # 打印json返回数据
+    # print(r.json())
 
 # test_yfk()
