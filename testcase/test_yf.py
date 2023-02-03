@@ -237,6 +237,8 @@ def test_xgws():
     # 打印json返回数据
     print(r.json())
 
+# test_xgws()
+
 
 # 预付款变更
 # 定义随机增加减少预付款金额
@@ -262,4 +264,4 @@ def test_yfk():
     assert r.json()['message'] == 'success'
     print(r.json())
 
-# test_ws()
+# test_yfk()
