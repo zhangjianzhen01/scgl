@@ -28,7 +28,6 @@ whs = jine * 0.15
 
 
 def test_fp():
-    global c
     # 发票URL
     fp_url = 'http://192.168.0.217:9901/PurchaseApInvoice'
     # 发票请求头
@@ -45,9 +44,6 @@ def test_fp():
     r = requests.post(url=fp_url, json=fp_data, headers=fp_header)
     # 输出日志
     logger.logger.debug(f'发送请求:{r}')
-    # 获取发票订单id更新到列表
-    b['id'] = r.json()['data']['id']
-    c = r.json()['data']['id']
     # 打印json返回数据
     # print(r.json())
     # 设置发票成功断言
