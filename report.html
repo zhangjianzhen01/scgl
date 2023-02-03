@@ -253,7 +253,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 }
 </script>
     <h1>report.html</h1>
-    <p>Report generated on 01-Feb-2023 at 11:03:18 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
+    <p>Report generated on 03-Feb-2023 at 18:39:23 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -269,8 +269,8 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <td>Python</td>
         <td>3.11.1</td></tr></table>
     <h2>Summary</h2>
-    <p>3 tests ran in 0.69 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">3 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <p>19 tests ran in 2.59 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">19 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -284,27 +284,195 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
-          <td class="col-name">testcase/test_kpgl.py::test_dl</td>
-          <td class="col-duration">0.22</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">testcase/test_kpgl.py::test_sq</td>
+          <td class="col-name">testcase/test_yf.py::test_fp</td>
           <td class="col-duration">0.16</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody>
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:21,772 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_fp
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:52 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
-          <td class="col-name">testcase/test_kpgl.py::test_qr</td>
-          <td class="col-duration">0.21</td>
+          <td class="col-name">testcase/test_yf.py::test_sckp</td>
+          <td class="col-duration">0.18</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="empty log">No log output captured.</div></td></tr></tbody></table></body></html>
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:21,959 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_sckp
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:73 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_cxfp</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>连接成功
+((2266, &#x27;add&#x27;), (2266, &#x27;delete&#x27;))
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_fk</td>
+          <td class="col-duration">0.16</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:22,133 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_fk
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:126 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_scfk</td>
+          <td class="col-duration">0.19</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:22,324 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_scfk
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:146 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_cxfk</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>连接成功
+((1977, &#x27;add&#x27;), (1977, &#x27;delete&#x27;))
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_zk</td>
+          <td class="col-duration">0.15</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:22,480 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_zk
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:196 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_xgzk</td>
+          <td class="col-duration">0.15</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:22,641 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_xgzk
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:222 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_sczk</td>
+          <td class="col-duration">0.15</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:22,799 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_sczk
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:238 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_cxzk</td>
+          <td class="col-duration">0.01</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>连接成功
+((86, &#x27;add&#x27;), (86, &#x27;update&#x27;), (86, &#x27;delete&#x27;))
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_zz</td>
+          <td class="col-duration">0.17</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:22,990 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_zz
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:287 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_xgzz</td>
+          <td class="col-duration">0.16</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:23,160 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_xgzz
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:315 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_sczz</td>
+          <td class="col-duration">0.14</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:23,303 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_sczz
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:332 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_cxzz</td>
+          <td class="col-duration">0.01</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>连接成功
+((94, &#x27;add&#x27;), (94, &#x27;update&#x27;), (94, &#x27;delete&#x27;))
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_ws</td>
+          <td class="col-duration">0.15</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:23,474 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_ws
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:382 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_xgws</td>
+          <td class="col-duration">0.14</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:23,621 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_xgws
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:410 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_scws</td>
+          <td class="col-duration">0.13</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:23,759 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_scws
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:427 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_cxws</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>连接成功
+((188, &#x27;add&#x27;), (188, &#x27;update&#x27;), (188, &#x27;delete&#x27;))
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcase/test_yf.py::test_yfk</td>
+          <td class="col-duration">0.10</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2023-02-03 18:39:23,876 DEBUG 生产管理系统 发送请求:&lt;Response [200]&gt; test_yf.py test_yfk
+<br/> -------------------------------Captured log call-------------------------------- <br/>DEBUG    生产管理系统:test_yf.py:474 发送请求:&lt;Response [200]&gt;<br/></div></td></tr></tbody></table></body></html>

@@ -7,6 +7,7 @@ from business import logger
 import random
 import pymysql
 
+
 # 定义token
 a = dlxt.test_dl()['data']['token']
 # 定义金额
@@ -78,7 +79,7 @@ def test_sckp():
 
 
 # 查询发票操作记录
-def test_查询发票操作日志():
+def test_cxfp():
     global kpid
     # 连接数据库
     connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
@@ -96,7 +97,7 @@ def test_查询发票操作日志():
     yf.close()
 
 
-# # test_查询发票操作日志()
+# # test_cxfp()
 
 # 定义付款id
 fukuan = {'id': None}
@@ -151,7 +152,7 @@ def test_scfk():
 
 
 # 查询付款操作记录
-def test_查询付款操作日志():
+def test_cxfk():
     global fkid
     # 连接数据库
     connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
@@ -169,7 +170,7 @@ def test_查询付款操作日志():
     yf.close()
 
 
-# test_查询付款操作日志()
+# test_cxfk()
 
 
 # 折扣
@@ -242,7 +243,7 @@ def test_sczk():
 # test_sczk()
 
 # 查询折扣操作记录
-def test_查询折扣操作日志():
+def test_cxzk():
     global zkid
     # 连接数据库
     connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
@@ -260,7 +261,7 @@ def test_查询折扣操作日志():
     yf.close()
 
 
-# test_查询折扣操作日志()
+# test_cxzk()
 
 
 # 终止
@@ -337,7 +338,7 @@ def test_sczz():
 
 
 # 查询终止操作记录
-def test_查询终止操作日志():
+def test_cxzz():
     global zzid
     # 连接数据库
     connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
@@ -355,7 +356,7 @@ def test_查询终止操作日志():
     yf.close()
 
 
-# test_查询终止操作日志()
+# test_cxzz()
 
 
 # 未税
@@ -432,7 +433,7 @@ def test_scws():
 
 
 # 查询未税操作记录
-def test_查询未税操作日志():
+def test_cxws():
     global ws
     # 连接数据库
     connect = pymysql.connect(host='192.168.0.226', user='root', password='CLd8T8TWt58ypaxd', db='hz_erp_test')
@@ -450,7 +451,7 @@ def test_查询未税操作日志():
     yf.close()
 
 
-# test_查询未税操作日志()
+# test_cxws()
 
 
 # 预付款变更
