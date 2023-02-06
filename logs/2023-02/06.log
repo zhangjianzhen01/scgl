@@ -1,0 +1,14 @@
+2023-02-06 09:17:03,319 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_fp
+2023-02-06 09:17:03,520 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_sckp
+2023-02-06 09:17:03,766 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_fk
+2023-02-06 09:17:03,982 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_scfk
+2023-02-06 09:17:04,207 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_zk
+2023-02-06 09:17:04,382 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_xgzk
+2023-02-06 09:17:04,530 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_sczk
+2023-02-06 09:17:04,776 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_zz
+2023-02-06 09:17:04,957 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_xgzz
+2023-02-06 09:17:05,118 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_sczz
+2023-02-06 09:17:05,316 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_ws
+2023-02-06 09:17:05,480 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_xgws
+2023-02-06 09:17:05,624 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_scws
+2023-02-06 09:17:05,828 DEBUG 生产管理系统 发送请求:<Response [200]> test_yf.py test_yfk

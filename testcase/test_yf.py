@@ -1,11 +1,11 @@
 # coding=gbk
 
-# 引用自定义登录模块
+# 引用登录代码
 import business.dlxt
 from business import dlxt
 # 引用request库
 import requests
-# 引用自定义日志模块
+# 引用日志代码
 import business.logger
 from business import logger
 # 引用random库
