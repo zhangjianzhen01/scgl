@@ -1,12 +1,17 @@
 # coding=gbk
+
+# 引用自定义登录模块
 import business.dlxt
 from business import dlxt
+# 引用request库
 import requests
+# 引用自定义日志模块
 import business.logger
 from business import logger
+# 引用random库
 import random
+# 引用MySQL库
 import pymysql
-
 
 # 定义token
 a = dlxt.test_dl()['data']['token']
